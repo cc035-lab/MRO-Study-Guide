@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MRO Study Guide</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#16202e;--mute:#5a6576;--line:#d9dee6;--acc:#1f3f74;--acc2:#2f5aa3;--accInk:#fff;--pass:#1d7a46;--passBg:#e3f4ea;--fail:#b3261e;--failBg:#fbe7e5;--warn:#9a6200;--warnBg:#fff3d6;--say:#eef3fb;--sayInk:#163764}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f141b;--card:#18202b;--ink:#e6ebf2;--mute:#9aa6b6;--line:#2b3644;--acc:#7fa6e6;--acc2:#a7c3f0;--accInk:#0f141b;--pass:#5fd28f;--passBg:#143322;--fail:#ff8a80;--failBg:#3a1714;--warn:#f0c060;--warnBg:#3a2d0c;--say:#1c2a40;--sayInk:#cfe0ff}}
+:root[data-theme="dark"]{--bg:#0f141b;--card:#18202b;--ink:#e6ebf2;--mute:#9aa6b6;--line:#2b3644;--acc:#7fa6e6;--acc2:#a7c3f0;--accInk:#0f141b;--pass:#5fd28f;--passBg:#143322;--fail:#ff8a80;--failBg:#3a1714;--warn:#f0c060;--warnBg:#3a2d0c;--say:#1c2a40;--sayInk:#cfe0ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--acc);color:var(--accInk);padding:14px 16px 0;position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:1.15rem;letter-spacing:.02em}
+header .sub{font-size:.8rem;opacity:.85}
+nav{display:flex;gap:2px;overflow-x:auto;margin-top:10px;scrollbar-width:none}
+nav button{background:transparent;border:0;color:inherit;opacity:.8;padding:9px 12px;font:inherit;font-size:.92rem;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+nav button.on{opacity:1;border-bottom-color:currentColor;font-weight:600}
+main{max-width:980px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:14px}
+h2{font-size:1.25rem;margin:0 0 8px}h3{font-size:1.05rem;margin:14px 0 6px}
+.mute{color:var(--mute)}.small{font-size:.86rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.tasklist button{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:8px;color:var(--ink);font:inherit;cursor:pointer}
+.tasklist button:hover{border-color:var(--acc2)}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;background:var(--acc);color:var(--accInk);border-radius:5px;padding:1px 7px;margin-right:6px}
+.say{display:inline-block;background:var(--say);color:var(--sayInk);border-left:3px solid var(--acc2);padding:2px 8px;border-radius:4px;font-style:italic;margin:2px 0}
+.script{background:var(--say);color:var(--sayInk);padding:10px 12px;border-radius:6px;font-size:.93rem}
+.note{background:var(--warnBg);color:var(--warn);border-radius:6px;padding:8px 12px;font-size:.88rem}
+.study dt{font-weight:700;margin-top:10px}.study dd{margin:2px 0 0 0}
+ul.tight,ol.tight{margin:4px 0;padding-left:22px}
+.btn{background:var(--acc);color:var(--accInk);border:0;border-radius:7px;padding:9px 14px;font:inherit;font-weight:600;cursor:pointer}
+.btn.sec{background:transparent;color:var(--acc);border:1px solid var(--acc)}
+.btn.sm{padding:5px 10px;font-size:.86rem}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+table.tbl{border-collapse:collapse;width:100%;font-size:.92rem}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{color:var(--mute);font-weight:600}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+.opt.ok{background:var(--passBg);border-color:var(--pass);color:var(--pass)}
+.opt.bad{background:var(--failBg);border-color:var(--fail);color:var(--fail)}
+.flash{min-height:180px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.4rem;font-weight:600;cursor:pointer;user-select:none}
+.flash .back{font-size:1.05rem;font-weight:400}
+input,textarea,select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:7px 9px;width:100%}
+textarea{min-height:60px}
+label{font-size:.85rem;color:var(--mute);display:block;margin-top:8px}
+.meas{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}
+.meas .txt{flex:1}
+.pf{display:flex;gap:4px}
+.pf button{width:40px;height:34px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--mute);font-weight:700;cursor:pointer}
+.pf button.P.on{background:var(--pass);color:#fff;border-color:var(--pass)}
+.pf button.F.on{background:var(--fail);color:#fff;border-color:var(--fail)}
+.badge{font-size:.78rem;font-weight:700;padding:2px 8px;border-radius:20px}
+.badge.pass{background:var(--passBg);color:var(--pass)}.badge.fail{background:var(--failBg);color:var(--fail)}.badge.pend{background:var(--line);color:var(--mute)}
+.brief{border:2px solid var(--acc2);border-radius:8px;padding:10px 12px;background:var(--say);color:var(--sayInk)}
+.timer{font:700 1.8rem/1 ui-monospace,Consolas,monospace;padding:6px 12px;border-radius:8px;background:var(--say);color:var(--sayInk)}
+.timer.out{background:var(--failBg);color:var(--fail)}
+details{margin-top:8px}summary{cursor:pointer;font-weight:600;color:var(--acc)}
+.lock{max-width:380px;margin:40px auto;text-align:center}
+.prog{height:8px;background:var(--line);border-radius:6px;overflow:hidden}.prog>i{display:block;height:100%;background:var(--pass)}
+#printArea{display:none}
+@media print{body{background:#fff!important}header,main,.noprint{display:none!important}#printArea{display:block!important;color:#000;font:12px/1.4 Arial,sans-serif}#printArea table{border-collapse:collapse;width:100%}#printArea td,#printArea th{border:1px solid #888;padding:3px 5px}}
+@media (max-width:560px){main{padding:12px}.card{padding:13px}}
+</style>
+</head>
+<body>
+<header class="noprint">
+ <h1>MRO Study Guide &amp; Evaluator</h1>
+ <div class="sub">Civil Air Patrol Mission Radio Operator — SQTR preparation</div>
+ <nav id="nav"></nav>
+</header>
+<main id="main"></main>
+<div id="printArea"></div>
+<script>
+/* ===== MRO STUDY GUIDE DATA =====
+   Sources: CAP Mission Radio Operator Task Book (extracted from Mission Base Staff Tasks, 24 May 2004),
+   MRO SQTR worksheet (eServices), "Mission Radio Operator Skills and Requirements" course slides,
+   rovingbits.com/cap/MROtasks.htm (based on May 2024 Mission Base Task Guide).
+   Items marked GP are general radio/safety practice added for clarity, not quoted from the task guide. */
+
+const SQTR = [
+  {grp:"Prerequisites", items:[
+    {id:"GES", t:"GES – General Emergency Services (CAPT 116)", n:"Online in the Absorb catalog. Must be qualified GES first."},
+    {id:"ICUT", t:"ICUT – Introductory Communications User Training", n:"Absorb catalog. Basic radio user training."},
+    {id:"CMDR", t:"Commander approval for prerequisites", n:"Unit/Wing/Region commander or designee approves. You may then train as an MRO trainee under supervision."}
+  ]},
+  {grp:"Advanced Training", items:[
+    {id:"IS100", t:"IS-100 – Introduction to the Incident Command System", n:"FEMA online course."},
+    {id:"IS700", t:"IS-700 – Introduction to NIMS", n:"FEMA online course."},
+    {id:"L-0001", t:"L-0001 Basic Communications Procedures for ES Operations"},
+    {id:"L-0002", t:"L-0002 Perform Radio Operating Procedures"},
+    {id:"L-0003", t:"L-0003 Employ Appropriate Radio Frequencies and Repeaters"},
+    {id:"L-0004", t:"L-0004 Message Handling Procedures"},
+    {id:"L-0005", t:"L-0005 Choose a Good Communications Site"},
+    {id:"L-0006", t:"L-0006 Take Steps to Regain Communications"},
+    {id:"L-0007", t:"L-0007 Conduct Scheduled Radio Checks"},
+    {id:"L-0008", t:"L-0008 Send a Position Report"},
+    {id:"L-0009", t:"L-0009 Report a Clue or Find"},
+    {id:"L-0010", t:"L-0010 Communications Safety Procedures"},
+    {id:"P-0101", t:"P-0101 Demonstrate the Ability to Keep a Log"}
+  ]},
+  {grp:"Exercise Participation", items:[
+    {id:"EX1", t:"Exercise/mission #1 as MRO trainee", n:"Under direct supervision of a qualified supervisor; mission number recorded."},
+    {id:"EX2", t:"Exercise/mission #2 as MRO trainee", n:"Second mission number recorded and signed."}
+  ]},
+  {grp:"Continuing Education", items:[
+    {id:"CAPT117", t:"CAPT 117 ES Continuing Education Exam – Part 3", n:"Absorb catalog."}
+  ]}
+];
+
+const TASKS = [
+{
+ id:"L-0001", title:"Basic Communications Procedures for ES Operations",
+ cond:"You are a member of the CAP mission staff performing a task in which the use of a radio is necessary.",
+ obj:"Properly operate a CAP radio.",
+ know:[
+  "Demonstrate the proper method to contact another station.",
+  "Demonstrate knowledge of call signs.",
+  "Demonstrate knowledge of basic prowords (ROGER, OVER, OUT, AFFIRMATIVE…).",
+  "Demonstrate ability to operate basic radio equipment (volume, squelch, channel).",
+  "Demonstrate knowledge of prohibited practices (e.g., chit‑chat).",
+  "Demonstrate knowledge of National communications policies, local operating practices, and region/wing/local policies."
+ ],
+ study:[
+  ["Listen first","Before you key the mic, LISTEN to make sure the channel is clear. This is performance measure #1 — evaluators watch for it."],
+  ["Calling format","Say the station you are calling, then “THIS IS”, then your call sign, then “OVER”.<br><span class='say'>“Mission Base, THIS IS Ground Team One, OVER.”</span>"],
+  ["Answer format","<span class='say'>“Ground Team One, THIS IS Mission Base, OVER.”</span> (or “…Mission Base, go ahead, OVER.”)"],
+  ["Close","When finished: <span class='say'>“…Ground Team One, OUT.”</span> Never say “over and out” — OVER expects a reply, OUT ends the exchange."],
+  ["Prohibited practices","Chit‑chat / unnecessary transmissions, discussing frequencies on the air, unprofessional language, “Roger Wilco” (WILCO already includes ROGER), transmitting without identifying, interfering with other traffic."],
+  ["Equipment","Know where volume, squelch, and channel selector are; know which channel is the local repeater and which is simplex."]
+ ],
+ setup:"Provide a basic radio (volume, squelch, channel controls) and at least one other radio/station. The exchange should go through several transmissions with questions and answers. Use the prowords ROGER, OVER, OUT, AFFIRMATIVE. Prohibited practices such as “chit‑chat” should be used or discussed.",
+ brief:"You are at mission base and have been assigned the task of reporting when the director of the local office of emergency management arrives for his/her tour of the facility. Contact the other station and make that report.",
+ measures:[
+  "Listen before transmitting",
+  "Demonstrate calling procedures including call signs",
+  "Demonstrate use/understanding of basic prowords",
+  "Demonstrate understanding of radio equipment including finding local repeater/simplex"
+ ],
+ key:[
+  "Candidate pauses and listens before keying.",
+  "Call: “[Station called], THIS IS [own call sign], OVER.” Waits for answer before passing traffic.",
+  "Traffic, e.g.: “The Director of Emergency Management has arrived at the main entrance for the tour, OVER.”",
+  "Uses ROGER / AFFIRMATIVE correctly when answering questions; ends with “OUT” (not “over and out”).",
+  "Can show you the volume, squelch, channel controls and point out the repeater and simplex channels.",
+  "Can name at least one prohibited practice (chit‑chat, discussing frequencies on air, etc.)."
+ ]
+},
+{
+ id:"L-0002", title:"Perform Radio Operating Procedures",
+ cond:"You are a mission radio operator at a search/DR base.",
+ obj:"Properly operate a mission base radio system.",
+ know:[
+  "Contact another station properly.",
+  "International Phonetic Alphabet.",
+  "CAP prowords.",
+  "International urgency signals.",
+  "Maintain a communications status board.",
+  "Familiarity with standard equipment and local communications operations.",
+  "Proper use of standard radio equipment: set volume & squelch; proper microphone use."
+ ],
+ study:[
+  ["Why it matters","The MRO maintains communications with all mission assets (aircraft, ground teams, flight line, forward bases) to send new instructions, report mission information, and keep track of people in the field for safety."],
+  ["Volume & squelch (GP)","Turn squelch down (open) until you hear background noise, then turn it up just until the noise stops. Set volume to a comfortable level. Too much squelch = you miss weak stations."],
+  ["Microphone technique (GP)","Hold the mic 1–2 inches from your mouth, slightly to the side. Press to talk (PTT), pause about a second, speak clearly at normal volume, then release to listen (RTL). Think before you transmit."],
+  ["Calling an aircraft","<span class='say'>“CAP Two Eight One Seven, THIS IS Mission Base, OVER.”</span> Wait for the aircraft to answer, then pass the message."],
+  ["Grid change (example)","<span class='say'>“CAP Two Eight One Seven, Mission Base. New assignment: proceed to grid Washington One Zero Two Charlie. I say again, grid Washington One Zero Two Charlie. Read back, OVER.”</span> Use phonetics for letters, pronounce numbers digit by digit (NINER, FIFE, TREE…)."],
+  ["Urgency signals","<b>MAYDAY</b> (said 3 times) = DISTRESS – grave and imminent danger, immediate help needed.<br><b>PAN‑PAN</b> (said 3 times) = URGENCY – urgent safety situation, not immediate danger.<br><b>SECURITE</b> = safety information."],
+  ["Action on MAYDAY / PAN‑PAN (GP)","Stop all other transmissions and keep the channel clear • copy EVERYTHING (who, where, what's wrong, help needed, persons on board) • log the time • notify the Communications Unit Leader / Incident Commander immediately • acknowledge and relay as directed. The MRO passes the information — decision makers decide."],
+  ["Status board","Post the current status of every resource so all who need it can see it: call sign, assignment/grid, departure time, last check‑in, next check due, location, status. Update it every time something changes (e.g., the grid change you just sent)."]
+ ],
+ setup:"Provide the student with a message to reassign an aircraft to another grid, a status board, a radio, paper and pencil/pen.",
+ brief:"Ask the student how they would contact an aircraft flying a sortie. Tell the student that he/she needs to transmit the change of grid assignment to the aircraft. Then transmit an urgency signal to the student and ask them to identify the meaning of the signal and what action they should take.",
+ measures:[
+  "Demonstrate setting volume and squelch levels for proper function",
+  "Demonstrate proper microphone technique",
+  "Demonstrate listening before transmitting",
+  "Properly call and acknowledge aircraft",
+  "Send change of grid assignment, using proper phonetics and prowords",
+  "Correctly interpret urgency signal and take appropriate action",
+  "Update mission communications status boards"
+ ],
+ key:[
+  "Squelch: opened until noise heard, raised just to quiet; volume comfortable.",
+  "Mic close to mouth, PTT – pause – speak – RTL; clear, unhurried speech.",
+  "Listens before every call.",
+  "“[Aircraft call sign], THIS IS Mission Base, OVER.” Acknowledges the aircraft's reply.",
+  "Letters in phonetics, numbers digit‑by‑digit (“One Zero Two”), asks for read back.",
+  "MAYDAY = distress / PAN‑PAN = urgency. Action: clear the channel, copy all info, log time, notify CUL/IC immediately.",
+  "Status board changed to show new grid and time."
+ ],
+ scenario:"grid"
+},
+{
+ id:"L-0003", title:"Employ Appropriate Radio Frequencies and Repeaters",
+ cond:"You are the radio operator, and have been told to contact another station. You must choose what frequency to use.",
+ obj:"Within 2 minutes, identify the appropriate frequencies and channels used for operations.",
+ timer:120,
+ know:[
+  "Simplex (VHF‑FM): short‑range; units transmit and receive on the same frequency.",
+  "Duplex (repeater): longer range through a repeater; accessed by sending a subaudible tone. Per the task guide, a 100.0 Hz tone activates any CAP repeater but is used only in emergencies and to request the proper tone; the Communications Unit Leader briefs which frequencies/tones to use.",
+  "VHF‑AM (Airband) SAR frequencies: dedicated frequencies authorized for training and actual missions, accessible by any aircraft.",
+  "National HF frequencies: coordinated by National HQ; HF teams may serve as relay points out of disaster areas.",
+  "Region HF frequencies: for HF operations within a region; longer range than VHF‑FM.",
+  "Other frequencies: police, Coast Guard, other SAR agencies — the Communications Unit Leader briefs their use."
+ ],
+ study:[
+  ["Who assigns frequencies?","The <b>Communications Unit Leader</b> assigns frequencies and briefs repeater tones."],
+  ["The five groups","1) Simplex VHF‑FM 2) Duplex/repeaters 3) VHF‑AM airband SAR 4) National HF 5) Region HF (+ other‑agency frequencies)."],
+  ["What you must identify","Primary simplex • Alternate simplex • Primary duplex pair • Alternate duplex pair • Primary HF‑SSB (region) • Alternate HF‑SSB (region) — each with its USE — all within <b>2 minutes</b>."],
+  ["Cheat sheet allowed!","The student may use any item from field gear, including the task book or a cheat sheet. Bring your wing comms plan / channel list and practice reading it fast."],
+  ["Airband SAR (reference)","123.1 MHz is used for actual SAR missions; 122.9 MHz is used for training (per CAP wing comms references). Do not use airband SAR frequencies for ground‑to‑ground CAP business."],
+  ["Be a good neighbor","If you can clearly reach the team on simplex, don't tie up the repeater — others may need it. Never discuss frequencies on the air."],
+  ["References","CAPR 100‑1 (Communications) chapters 7, 9 & 10, the Communications Directory, and your Wing Communications Operations & Training plans. Check for the current CAPI 100‑1 edition."]
+ ],
+ setup:"Prepare a list of the five frequency groups for your area of operation with assignments in each group. Give the list to the trainee. The student may use any item from his field gear, including the task book or a “cheat sheet”.",
+ brief:"Identify each frequency and its use. You have 2 minutes total.",
+ measures:[
+  "Identifies the primary simplex frequency and its use",
+  "Identifies the alternate simplex frequency and its use",
+  "Identifies the primary duplex frequency pair and its use",
+  "Identifies the alternate duplex frequency pair and its use",
+  "Identifies the primary HF SSB frequency for the region",
+  "Identifies the alternate HF‑SSB frequency for the region",
+  "Completes all steps within 2 minutes"
+ ],
+ key:["Compare answers to YOUR local frequency list (set it in Instructor ▸ Settings). Each answer must include the channel AND its use."],
+ scenario:"freq"
+},
+{
+ id:"L-0004", title:"Message Handling Procedures",
+ cond:"You are a mission radio operator at a SAR/DR base.",
+ obj:"Demonstrate the proper sending, receiving and distribution of formal and informal message traffic.",
+ know:[
+  "Send formal and informal messages.",
+  "Explain the significance of message precedence.",
+  "Fill out incoming message forms.",
+  "Fill in a mission radio log.",
+  "Receive and route a formal message."
+ ],
+ study:[
+  ["Formal vs informal","<b>Informal</b> traffic is conversational and most common (e.g., “Have Ground Team One call the Ground Branch Director by phone”).<br><b>Formal</b> traffic is written on a message form and sent exactly as written — used when the exact wording matters or several stations must receive the same message the same way (e.g., a mission continuation message)."],
+  ["Precedence","Precedence tells everyone how fast a message must be handled — higher precedence is handled first. The MRO usually doesn't set it (the originator does) but must understand it and may need to guide people preparing messages. Common scheme: FLASH › IMMEDIATE › PRIORITY › ROUTINE. Confirm the exact levels in current CAP comms guidance (CAPI 100‑1 / Radiotelephone Procedures Guide)."],
+  ["ICS 213 – General Message","Fields: Incident name, TO (name/position), FROM (name/position), SUBJECT, DATE, TIME, MESSAGE, APPROVED BY, REPLY, REPLIED BY. Write clearly, then get it to the addressee promptly."],
+  ["ICS 214 – Activity / Unit Log","The MRO keeps the communications unit log on an ICS 214: incident name, operational period, name, ICS position, home agency/unit, resources assigned, and time‑stamped notable activities, signed by the preparer."],
+  ["Asking for a fill","If part of a formal message was missed, ask only for the missing part:<br><span class='say'>“SAY AGAIN ALL AFTER [word]”</span> • <span class='say'>“SAY AGAIN ALL BEFORE [word]”</span> • <span class='say'>“SAY AGAIN WORD AFTER [word]”</span> • <span class='say'>“SAY AGAIN ALL BETWEEN [word] AND [word]”</span><br>The sender answers: <span class='say'>“I SAY AGAIN ALL AFTER [word] …”</span>"],
+  ["Distribute it","Your job isn't done when you copy it — log it, then deliver the message to the addressee (and file a copy) quickly. Accurate and timely."]
+ ],
+ setup:"Provide the student with a formal mission continuation message and an informal message for a ground team to contact the Ground Branch Director by telephone, message forms, a radio, paper and pencil/pen.",
+ brief:"Send me the formal and informal messages. (Evaluator: ask for a fill on the formal message. Then send a formal message to the student, and an informal message to the student.)",
+ measures:[
+  "Properly send messages, using appropriate phonetics and prowords",
+  "Properly handle a request for a fill on the formal message",
+  "Properly fill out and distribute a message form",
+  "Properly and completely fill out mission radio log"
+ ],
+ key:[
+  "Formal message read exactly as written, at copy speed, unusual words spelled with “I SPELL”, numbers digit by digit.",
+  "On a fill request (e.g., “SAY AGAIN ALL AFTER continues”) the student replies “I SAY AGAIN ALL AFTER continues …” — only the requested part.",
+  "Incoming message copied onto ICS 213 completely (to, from, subject, date, time, message) and delivered/routed to addressee.",
+  "Each message logged on the radio log / ICS 214 with time, station, and summary."
+ ],
+ scenario:"msg"
+},
+{
+ id:"L-0005", title:"Choose a Good Communications Site",
+ cond:"Given a scenario in which a team is deployed from base to a remote location.",
+ obj:"Determine a good location to contact base by radio.",
+ know:[
+  "High ground — the higher you are, the farther your signal travels (fewer objects in the way).",
+  "Line of sight — a clear path through the air to the other station. A high spot doesn't help if higher ground is still between you. Tall buildings, metal sheds and towers block signals.",
+  "Accessibility — make sure you can actually get there (no locked gate, can drive/walk to it).",
+  "Radio interference — avoid interference generators: (1) high power lines, (2) transformers, (3) underground cables."
+ ],
+ study:[
+  ["Memory aid","<b>H‑L‑A‑I</b>: <b>H</b>igh ground, <b>L</b>ine of sight, <b>A</b>ccessibility, <b>I</b>nterference."],
+  ["Interference sources","High power lines • Transformers • Underground cables. You need to name <b>two</b>."],
+  ["To pass","Name at least <b>three of the four</b> site factors and <b>two</b> sources of radio interference."]
+ ],
+ setup:"None.",
+ brief:"Name at least three factors in choosing a good communications site, and two sources of radio interference.",
+ measures:[
+  "Identifies three of the four communications site factors",
+  "Identifies two radio interference sources"
+ ],
+ key:["Factors: high ground, line of sight, accessibility, radio interference.","Interference sources: high power lines, transformers, underground cables."]
+},
+{
+ id:"L-0006", title:"Take Steps to Regain Communications",
+ cond:"Given a radio and a situation where you must contact another unit or base by radio but cannot reach them.",
+ obj:"Define correct procedures for re‑establishing a radio communications link.",
+ know:[
+  "a. Check the radio — battery good (meter, or listen for static with squelch off), antenna and hand mic connected and working; try another radio or battery.",
+  "b. Move to higher ground — raises the antenna, improves line of sight.",
+  "c. Use duplex mode — try reaching base through a repeater.",
+  "d. Request ground or air relay — use an aircraft relay only if absolutely necessary.",
+  "e. If in a vehicle, move it — dead spots near power lines; a few meters can fix it.",
+  "f. If none of these work, find a telephone and call base."
+ ],
+ study:[
+  ["Why it happens","VHF‑FM is line‑of‑sight. Teams often end up on the “wrong” side of a mountain or in low areas."],
+  ["Order to remember (GP aid)","<b>Check – Climb – Repeater – Relay – Relocate – Phone</b>"],
+  ["To pass","Demonstrate troubleshooting the radio AND describe three of the remaining five steps."],
+  ["Don't forget","Cell phones/telephones are legitimate — radio isn't the only way."]
+ ],
+ setup:"None.",
+ brief:"You are the radio operator on a team and have been told to contact mission base, but cannot reach them. What steps would you take to regain communications?",
+ measures:[
+  "Demonstrate troubleshooting the radio",
+  "Describes three of the remaining five steps of re‑establishing communications with mission base"
+ ],
+ key:["Troubleshoot: battery, antenna, mic connections, squelch/volume/channel, swap radio or battery.","Then any three: higher ground, use duplex/repeater, ground or air relay (air only if absolutely necessary), move the vehicle, telephone."]
+},
+{
+ id:"L-0007", title:"Conduct Scheduled Radio Checks",
+ cond:"You are the radio operator for your team in the field. Your team has been told to contact mission base at scheduled times with current situational information.",
+ obj:"Conduct scheduled radio checks on time and with proper information.",
+ timer:300,
+ know:[
+  "WHEN: (a) at the times briefed by the ground operations director; (b) when completing sortie actions identified in advance by the ground branch director; (c) departing and returning to mission base; (d) entering and leaving search areas; (e) any extended stop, such as a meal break.",
+  "BEFORE the check: stop and determine the team's location and status — BEFORE the check is due. Then contact mission base or a radio relay.",
+  "TRANSMIT: (a) time of the check, (b) team's location, (c) team's status/actions in progress, (d) request confirmation and read‑back."
+ ],
+ study:[
+  ["Example check‑in","<span class='say'>“FREESTATE TWO FIVE, THIS IS FREESTATE TWO ONE SEVEN. Scheduled radio check for fourteen hundred hours. Team is located at grid right one point three, up two point two. Continuing search pattern, nothing else to report. Please read back this message.”</span>"],
+  ["Plan ahead","Know your location, your status, and anything you need from the station you're calling before the time comes."],
+  ["Read‑back","Don't be afraid to ask for confirmation and read‑back of critical messages."]
+ ],
+ setup:"On paper, write the ground team's location, what it has been doing since the last check, and what it is doing now. Don't let the candidate see it — read information off the paper only when asked. Provide a radio, paper, pencil; ensure the candidate has a watch.",
+ brief:"You are now your team's radio operator. When would you make check‑ins with mission base? (After answer:) You must make a scheduled radio check at ____ (5 minutes from now). I will answer any questions you have about your ground team's status.",
+ measures:[
+  "Identifies the four times a team makes radio checks",
+  "Determines the team's location and status before checking in",
+  "Transmits radio check‑in correctly, including time, location, and team actions",
+  "Requests/receives confirmation"
+ ],
+ key:[
+  "Times: as briefed; completing pre‑identified sortie actions; departing/returning to base; entering/leaving search areas; extended stops (meal breaks).",
+  "Candidate asks you for location/status BEFORE the due time.",
+  "Check‑in on time, contains time + location + status/actions.",
+  "Asks for read‑back / confirmation and gets it."
+ ],
+ scenario:"check"
+},
+{
+ id:"L-0008", title:"Send a Position Report",
+ cond:"Given a known coordinate position, a map, and a radio in the field.",
+ obj:"Transmit your known position to a distant station correctly.",
+ know:[
+  "1. Determine your position through terrain association, GPS, polar plot, or resection. Define it in latitude/longitude, overlay grid coordinates, or polar plot.",
+  "2. Contact the distant station using proper radiotelephone procedures.",
+  "3. Transmit the location clearly using lat/long, overlay grid coordinates, or polar plot.",
+  "4. Have the distant station read back the location for confirmation.",
+  "5. End the transmission according to radiotelephone procedures."
+ ],
+ study:[
+  ["Example (lat/long)","<span class='say'>“Mission Base, THIS IS Ground Team One, position report, OVER.”</span> … <span class='say'>“Position: North Four Zero degrees, Two Five decimal Three minutes; West Seven Five degrees, Four Seven decimal Eight minutes. Read back, OVER.”</span> … after correct read‑back: <span class='say'>“That is correct. Ground Team One, OUT.”</span>"],
+  ["Know landmarks too","Know where you are — not only coordinates but also landmarks. Transmit clearly and calmly."]
+ ],
+ setup:"Give the candidate a radio set to the correct frequency, a map marked with his known location, pencil and paper. Place another radio and operator at some distance.",
+ brief:"You are located at the marked point on the map. Your call sign is ____; the remote station is ____. Send a position report to the remote station.",
+ measures:[
+  "Contacts the other station appropriately",
+  "Transmits his location correctly",
+  "Requests read back for confirmation"
+ ],
+ key:["Proper call‑up; position sent in an approved format (lat/long, overlay grid, or polar plot) with digits pronounced clearly; requests read‑back and confirms/corrects; ends properly."],
+ scenario:"pos"
+},
+{
+ id:"L-0009", title:"Report a Clue or Find",
+ cond:"The team you are supporting has just found a clue that might be related to the search target.",
+ obj:"Correctly transmit a report to mission base containing all required information.",
+ timer:300,
+ know:[
+  "Mission base needs to know immediately to adjust the search. Report quickly and accurately; suggest if personnel (e.g., police) should be called out. Remember eavesdroppers may be listening.",
+  "a. Determine the clue location using an approved method (grid, polar plot or lat/long) — the CAP grid system is NOT precise enough for clue reporting.",
+  "b. Determine conditions of the clue, survivor or victim, and resources needed.",
+  "c. Search the immediate area for other clues.",
+  "d. Prepare the report using the format.",
+  "e. Establish good communications with mission base or a relay station (move if necessary).",
+  "f. Send the report in the standard format.",
+  "g. Avoid conjecture — don't guess on the radio what the clue means.",
+  "h. Avoid inflammatory or unclear descriptions."
+ ],
+ study:[
+  ["Clue report script (TX = you, RX = mission base)",
+   "<div class='script'>TX: “I have a clue report for the mission coordinator or ground operations officer. Advise when you are ready to copy, OVER.”<br>RX: “Roger, proceed, OVER.”<br>TX: “Location: (grid coordinates, polar plot, etc.), OVER.”<br>RX: “Roger, continue, OVER.”<br>TX: “Found: (clue description).”<br>RX: “Roger, continue, OVER.”<br>TX: “(Status of clue – marked, bagged, etc.)”<br>RX: “Roger, what resources do you need, if any? OVER.”<br>TX: “(Resource numbers needed), OVER.”<br>RX: “Roger, I'll pass that on immediately, OVER.”<br>TX: “Standing by for further instructions.”</div>"],
+  ["Resource numbers","1 No resources needed – rescue with forces on hand<br>2 Advanced Life Support required<br>3 Fire Suppression Personnel required<br>4 Medical Examiner or Coroner required<br>5 Law Enforcement Personnel required<br>6 Hazardous Materials Team required<br>7 Additional Ground Teams required"],
+  ["Say it right","NOT: “We've found a pile of bloody clothing.”<br>SAY: <span class='say'>“Found one pair of jeans, size 12, and one white T‑shirt. Both are dirty and have possible bloodstains.”</span>"],
+  ["Time limit","All steps within <b>5 minutes</b>. Mission base must read the message back; make corrections as needed."]
+ ],
+ setup:"Prepare a written description of a clue/find including its location (objective method), description, current status, and additional resources needed. Provide a copy of the clue report format.",
+ brief:"Your team has just found a clue. I will play mission base and the team leader. Read the written clue and ask any questions. When ready, prepare a clue report and send it to me using the format, as if using a radio, within 5 minutes. You may refer to the task guide.",
+ measures:[
+  "Correctly contacts mission base, says he has a clue report, and that they should prepare to copy",
+  "Correctly transmits the location using an authorized method (grid, lat/long, etc.)",
+  "Correctly transmits a description of the clue",
+  "Correctly transmits the current status of the clue",
+  "Correctly sends the item numbers for all resources needed",
+  "Transmits that he is standing by for further instructions",
+  "Has mission base read back the message; makes corrections as needed",
+  "Uses the correct format and verbiage",
+  "Does not use imprecise or unnecessarily graphic terms",
+  "Avoids conjecture",
+  "Completes all steps within 5 minutes"
+ ],
+ key:["Follows the TX/RX script in order; location by lat/long, polar plot or grid coordinates (not just a CAP grid); factual, non‑graphic description; status (marked/bagged/left in place); resource NUMBERS; “standing by for further instructions”; read‑back requested."],
+ scenario:"clue"
+},
+{
+ id:"L-0010", title:"Communications Safety Procedures",
+ cond:"You are a mission radio operator at a search/DR base.",
+ obj:"Explain the safety exposures and mitigation factors involved in operating a mission radio system.",
+ know:[
+  "List at least 5 safety rules for lightning protection.",
+  "Proper routing and securing of cables and wires.",
+  "Locating antenna systems to minimize RF exposure and EMI.",
+  "Explain a proper grounding system."
+ ],
+ study:[
+  ["Lightning rules (know 5 of 7)",
+   "1) If you can hear thunder, you are close enough to be hit — seek safe shelter.<br>2) Properly ground all equipment when installed.<br>3) Disconnect antennas from radios when lightning is observed in the area.<br>4) Disconnect radios/power supplies from AC outlets when lightning is observed.<br>5) In a vehicle, don't stay in a high location that makes you a target (hilltop, large open field).<br>6) On foot, seek shelter: report to mission base (or any unit) that you're leaving the air due to lightning; move to a sturdy building or car. NOT small sheds, isolated trees, or convertibles.<br>7) On foot with no shelter: find a low spot away from trees, fences and poles, not subject to flooding. In woods, shelter under shorter trees."],
+  ["Cables & wires (GP)","Route cables out of walkways and doorways; secure them (tape, cable covers, ties, or overhead); mark them so no one trips; keep power and coax tidy and away from water and heat; don't pinch them in doors or windows."],
+  ["Antenna placement (GP)","Place antennas high and clear, away from where people sit, stand or walk (minimizes RF exposure); keep them away from other antennas and electronics (minimizes EMI); never where they could fall onto or touch power lines."],
+  ["Grounding (GP)","Bond all equipment to a common, single‑point ground (ground rod or approved ground) with short, heavy conductors; use lightning arrestors on coax feed lines; follow the equipment manual and wing standards."],
+  ["Reference","CAPR 100‑1 Vol. 1, Chapter 7 (check current CAPI 100‑1)."]
+ ],
+ setup:"None.",
+ brief:"Recite the safety rules for lightning protection (at least five). Explain proper routing and securing of wires and cables, how to properly locate an antenna system, and how to ground the equipment.",
+ measures:[
+  "List at least 5 safety rules for lightning protection",
+  "Explain the proper routing and securing of wires and cables",
+  "Explain how to properly locate antenna systems to maximize safety and minimize RF exposure and EMI",
+  "Explain how to properly ground communications equipment"
+ ],
+ key:["Any 5 of the 7 lightning rules.","Cables out of traffic, secured, marked.","Antennas high/clear, away from people, other electronics and power lines.","Common single‑point ground, short heavy conductors, arrestors."]
+},
+{
+ id:"P-0101", title:"Keep a Log",
+ cond:"You have been assigned to keep a log on a mission and must log the actions of your unit, section or team on the ICS Form 214 for use during debrief.",
+ obj:"Correctly maintain a log of actions during an incident.",
+ know:[
+  "Staff must keep a log of all significant actions — for records, debriefing/search effectiveness, and as a legal record of CAP actions.",
+  "The log starts when a unit or section is opened and is maintained until personnel are called in and home safely to the incident commander. It is turned in with debriefing paperwork and becomes part of the official mission record.",
+  "EACH ENTRY: (a) the time, (b) the event, (c) mileage and/or location as appropriate, (d) name of individual annotating the log each time there is a change."
+ ],
+ study:[
+  ["Ground operations – always log","Departure/return times • routes to/from search area • entering/leaving search areas • search line direction changes • clue detections/witness interviews • time/location of find • communications checks • events affecting the sortie (hazards, injuries) • encounters/instructions from local authorities • media encounters • mileage at key points • distress beacon acquisition • beacon located & silenced (with details) • personnel assignments to/from the team. (ICS 214 may be attached to CAPF 109.)"],
+  ["Aircrew – always log","Briefing details • crew names • engine start • takeoff • comm checks • begin assigned grid/route • depart grid/route • significant weather/turbulence • landing • engine shutdown • crew changes. (ICS 214 may be attached to CAPF 104.)"],
+  ["Mission base staff – always log","Time/date unit or log started • name of unit, supervisor and log keeper • notes from initial briefing • times and notes from staff meetings • significant events, actions taken, direction received or provided."],
+  ["To pass","For each of 10 events: logs the time and event; writes legibly and completely."]
+ ],
+ setup:"Prepare a narrative of 10 events/actions and times. Provide the individual with the list, a pen, and an ICS Form 214. (Can also be done during an exercise by observing events and checking the log.)",
+ brief:"You are the log keeper for your unit. The 10 events in this narrative have occurred. Log the events/actions on the log form.",
+ measures:[
+  "Logs the time and event (all 10 events)",
+  "Writes legibly and completely"
+ ],
+ key:["Each of the 10 events has a time, event description, location/mileage where appropriate, and the log keeper's name/initials when the keeper changes."],
+ scenario:"log"
+}
+];
+
+const PHONETIC = [["A","Alfa"],["B","Bravo"],["C","Charlie"],["D","Delta"],["E","Echo"],["F","Foxtrot"],["G","Golf"],["H","Hotel"],["I","India"],["J","Juliett"],["K","Kilo"],["L","Lima"],["M","Mike"],["N","November"],["O","Oscar"],["P","Papa"],["Q","Quebec"],["R","Romeo"],["S","Sierra"],["T","Tango"],["U","Uniform"],["V","Victor"],["W","Whiskey"],["X","X‑ray"],["Y","Yankee"],["Z","Zulu"]];
+const NUMBERS = [["0","ZE‑RO"],["1","WUN"],["2","TOO"],["3","TREE"],["4","FOW‑ER"],["5","FIFE"],["6","SIX"],["7","SEV‑EN"],["8","AIT"],["9","NIN‑ER"],[".","DECIMAL / POINT"]];
+const PROWORDS = [
+ ["THIS IS","This transmission is from the station whose call sign follows."],
+ ["OVER","This is the end of my transmission; a response is expected. Go ahead."],
+ ["OUT","This is the end of my transmission; no answer is expected. (Never “over and out.”)"],
+ ["ROGER","I have received your last transmission satisfactorily."],
+ ["WILCO","I have received your message, understand it, and will comply. (Don't say “Roger Wilco.”)"],
+ ["AFFIRMATIVE","Yes / permission granted."],
+ ["NEGATIVE","No / permission not granted."],
+ ["SAY AGAIN","Repeat all (or the indicated portion) of your last transmission."],
+ ["I SAY AGAIN","I am repeating my transmission or the portion indicated."],
+ ["CORRECTION","An error has been made; the correct version is…"],
+ ["I SPELL","I will spell the next word phonetically."],
+ ["WAIT","I must pause for a few seconds."],
+ ["WAIT OUT","I must pause longer than a few seconds; I will call you back."],
+ ["BREAK","Separates portions of a message / separates messages."],
+ ["READ BACK","Repeat this entire transmission back to me exactly as received."],
+ ["I READ BACK","The following is my reply to your request to read back."],
+ ["THAT IS CORRECT","You are correct, or what you have transmitted is correct."],
+ ["WRONG","Your last transmission was incorrect; the correct version is…"],
+ ["RELAY TO","Transmit this message to the station indicated."],
+ ["FIGURES","Numerals or numbers follow."],
+ ["SPEAK SLOWER","Reduce your rate of speech."],
+ ["RADIO CHECK","What is my signal strength and readability?"],
+ ["SAY AGAIN ALL AFTER / ALL BEFORE / WORD AFTER","Used to request a fill of only the missed part of a message."]
+];
+const URGENCY = [
+ ["MAYDAY MAYDAY MAYDAY","DISTRESS — grave and imminent danger; immediate assistance required. Highest priority; all other traffic stops."],
+ ["PAN‑PAN PAN‑PAN PAN‑PAN","URGENCY — an urgent situation concerning the safety of an aircraft, vehicle or person that does not require immediate assistance."],
+ ["SECURITE (say‑cure‑ee‑TAY) ×3","SAFETY — an important safety message (e.g., hazard, weather) follows."]
+];
+const RESOURCES = [["1","No resources needed. Rescue can be accomplished with forces on hand."],["2","Advanced Life Support required."],["3","Fire Suppression Personnel required."],["4","Medical Examiner or Coroner required."],["5","Law Enforcement Personnel required."],["6","Hazardous Materials Team required."],["7","Additional Ground Teams required."]];
+
+/* Quiz bank: q, choices, a (index), e (explanation), t (task) */
+const QUIZ = [
+ {t:"L-0001",q:"What is the FIRST thing you should do before transmitting?",c:["Key the mic and say your call sign","Listen to make sure the channel is clear","Turn the squelch all the way up","Ask for a radio check"],a:1,e:"“Listen before transmitting” is performance measure #1 in L‑0001 and #3 in L‑0002."},
+ {t:"L-0001",q:"Which is the correct way to call mission base?",c:["“This is Ground Team One calling Mission Base.”","“Mission Base, THIS IS Ground Team One, OVER.”","“Ground Team One to Mission Base, over and out.”","“Hey base, you there?”"],a:1,e:"Station called → THIS IS → your call sign → OVER."},
+ {t:"L-0001",q:"What does ROGER mean?",c:["Yes","I will comply","I have received your last transmission satisfactorily","Repeat your last transmission"],a:2,e:"ROGER only means the transmission was received. It does not mean yes (AFFIRMATIVE) or I will comply (WILCO)."},
+ {t:"L-0001",q:"What does WILCO mean?",c:["Received, understood, and will comply","Wait for a few seconds","Received only","Message follows"],a:0,e:"WILCO already includes ROGER — never say “Roger Wilco.”"},
+ {t:"L-0001",q:"Why is “over and out” wrong?",c:["It is too long","OVER means a reply is expected; OUT means none is expected — they contradict","It is only used on HF","It is reserved for aircraft"],a:1,e:"Use one or the other."},
+ {t:"L-0001",q:"Which is a prohibited radio practice?",c:["Using phonetics for letters","Asking for a read‑back","Chit‑chat / unnecessary conversation","Ending with OUT"],a:2,e:"The task guide specifically lists “chit‑chat” as a prohibited practice to discuss."},
+ {t:"L-0002",q:"What is the phonetic word for the letter Q?",c:["Queen","Quebec","Quiet","Quintet"],a:1,e:"International Phonetic Alphabet: Q = Quebec."},
+ {t:"L-0002",q:"How is the number 9 pronounced on the radio?",c:["Nine","Nein","NIN‑ER","Nana"],a:2,e:"NINER avoids confusion with “five” and with the German “nein.”"},
+ {t:"L-0002",q:"You hear “MAYDAY MAYDAY MAYDAY.” What does it mean?",c:["Safety information follows","Distress — grave and imminent danger, immediate help needed","Routine traffic","Radio check"],a:1,e:"MAYDAY = distress, the highest priority."},
+ {t:"L-0002",q:"You hear “PAN‑PAN” three times. What does it mean?",c:["Urgency — urgent safety situation, not immediate danger","Distress","Cancel previous message","Weather report"],a:0,e:"PAN‑PAN = urgency."},
+ {t:"L-0002",q:"What should the MRO do on receiving an urgency or distress call?",c:["Ignore it unless it is a CAP station","Keep talking to finish current traffic","Clear the channel, copy all information, log the time and notify the CUL/IC immediately","Decide the response personally"],a:2,e:"The MRO passes the information quickly to the decision makers; the MRO doesn't make the decision."},
+ {t:"L-0002",q:"How do you set squelch correctly?",c:["All the way up","All the way down","Just past the point where the background noise stops","It doesn't matter"],a:2,e:"Too much squelch blocks weak stations; too little gives constant noise."},
+ {t:"L-0002",q:"What is the purpose of the communications status board?",c:["Decoration","Post common information (e.g., each resource's status/assignment) so everyone who needs it can see it, updated in a timely manner","Store frequencies","Track meals"],a:1,e:"From the MRO course: status boards share common info so the busy comms staff doesn't need to brief everyone."},
+ {t:"L-0002",q:"An aircraft due to report in is several minutes overdue and the CUL is in a meeting. What should you do?",c:["Wait until the CUL returns","Alert the Operations Section Chief or Air Operations Branch Director","Nothing — it's not your job","Call the FAA yourself"],a:1,e:"Course notes: don't be afraid to speak up; err on the side of safety."},
+ {t:"L-0003",q:"How long does the candidate have to identify the frequencies in L‑0003?",c:["30 seconds","2 minutes","5 minutes","10 minutes"],a:1,e:"All steps within 2 minutes — a cheat sheet is allowed."},
+ {t:"L-0003",q:"What is a simplex frequency?",c:["Transmit and receive on the same frequency — short range","A repeater pair","An HF frequency","An AM airband frequency"],a:0,e:"Simplex = same TX/RX frequency."},
+ {t:"L-0003",q:"How is longer‑range VHF‑FM communication normally achieved?",c:["Simplex","A repeater (duplex)","Shouting","Using 121.5 MHz"],a:1,e:"Duplex operation through a repeater, accessed with a subaudible tone."},
+ {t:"L-0003",q:"Who normally assigns frequencies and briefs repeater tones on a mission?",c:["Incident Commander","Each ground team leader","Communications Unit Leader","Mission Pilot"],a:2,e:"The Communications Unit Leader."},
+ {t:"L-0003",q:"Per the task guide, the 100.0 Hz tone that activates any CAP repeater should be used…",c:["For all traffic","Only in emergencies and to request the proper tone","Never","Only on HF"],a:1,e:"Other tones are programmed as required and briefed by the CUL."},
+ {t:"L-0003",q:"Which is NOT one of the frequency groups in L‑0003?",c:["Simplex VHF‑FM","Region HF","VHF‑AM airband SAR","Commercial FM broadcast"],a:3,e:"Groups: simplex, duplex, VHF‑AM SAR, National HF, Region HF (+ other agencies)."},
+ {t:"L-0003",q:"You can reach the field team clearly on simplex. Should you use the repeater?",c:["Yes, always","No — don't tie up the repeater; others may need it","Only at night","Only on HF"],a:1,e:"Course notes: use only the power and tools you need."},
+ {t:"L-0004",q:"Which message is an example of FORMAL traffic in the task?",c:["Have Ground Team 1 call the Ground Branch Director","A mission continuation message","Radio check","Lunch order"],a:1,e:"The evaluation uses a formal mission continuation message and an informal ‘call the GBD’ message."},
+ {t:"L-0004",q:"Which ICS form is the General Message form?",c:["ICS 201","ICS 205","ICS 213","ICS 214"],a:2,e:"ICS 213 General Message; ICS 214 is the Activity/Unit Log."},
+ {t:"L-0004",q:"Which ICS form is used for the unit/activity log?",c:["ICS 213","ICS 214","ICS 211","ICS 204"],a:1,e:"ICS 214."},
+ {t:"L-0004",q:"You missed the end of a formal message after the word “continues.” What do you say?",c:["“Say again all after continues”","“Repeat everything”","“What?”","“Roger”"],a:0,e:"Request only the missing portion (a ‘fill’)."},
+ {t:"L-0004",q:"Why does message precedence matter?",c:["It sets the font","It tells how quickly the message must be handled — higher precedence goes first","It's only for HF","It determines who signs"],a:1,e:"The MRO doesn't normally set precedence but must understand it."},
+ {t:"L-0005",q:"Which is one of the four communications site factors?",c:["Near a restaurant","Line of sight","Close to power lines","Inside a metal shed"],a:1,e:"High ground, line of sight, accessibility, radio interference."},
+ {t:"L-0005",q:"Which is a source of radio interference listed in the task?",c:["Trees","Transformers","Grass","Rain"],a:1,e:"High power lines, transformers, underground cables."},
+ {t:"L-0005",q:"A perfect hilltop site is behind a locked gate. Which factor fails?",c:["High ground","Line of sight","Accessibility","Interference"],a:2,e:"The best site is useless if you can't get to it."},
+ {t:"L-0005",q:"To pass L‑0005 you must name…",c:["All 4 factors and 3 sources","3 of 4 factors and 2 interference sources","2 factors and 1 source","1 factor"],a:1,e:"Per the performance measures."},
+ {t:"L-0006",q:"You can't reach base. What is the FIRST step?",c:["Call on the phone","Request an aircraft relay","Check the radio (battery, antenna, mic)","Drive back to base"],a:2,e:"Always troubleshoot the radio first."},
+ {t:"L-0006",q:"When should you use an AIRCRAFT relay?",c:["First choice","Only if absolutely necessary","Never","Every hour"],a:1,e:"Task guide: only use an aircraft relay if absolutely necessary."},
+ {t:"L-0006",q:"If none of the radio steps work, what do you do?",c:["Give up","Find a telephone and call base","Increase squelch","Turn off the radio"],a:1,e:"The telephone (incl. cell phone) is the last step."},
+ {t:"L-0006",q:"Why can moving a vehicle just a few meters help?",c:["It warms the radio","It can get you out of a radio ‘dead spot’, e.g., near power lines","It changes frequency","It doesn't"],a:1,e:"Dead spots are common near power lines and other areas."},
+ {t:"L-0007",q:"Which is NOT a time to make a radio check?",c:["Entering and leaving search areas","Departure and return to mission base","Any extended stop such as a meal break","Every time you see a car"],a:3,e:"Times: as briefed, completing pre‑identified sortie actions, depart/return, enter/leave search areas, extended stops."},
+ {t:"L-0007",q:"When should you determine your location and status for a scheduled check?",c:["After base calls you","BEFORE the check is due","After the mission","Never"],a:1,e:"Stop and determine location and status before the time the check is due."},
+ {t:"L-0007",q:"A scheduled radio check should include…",c:["Time, location, status/actions, and a request for read‑back","Only your call sign","Only location","Weather"],a:0,e:"Per L‑0007 item 4."},
+ {t:"L-0008",q:"Which is an approved way to determine your position?",c:["Guessing","Terrain association, GPS, polar plot, or resection","Asking a passerby only","Counting steps from base"],a:1,e:"Then define it in lat/long, overlay grid coordinates, or polar plot."},
+ {t:"L-0008",q:"After transmitting your position you should…",c:["Say OUT immediately","Have the distant station read it back for confirmation","Change frequency","Turn off the radio"],a:1,e:"Read‑back is performance measure #3."},
+ {t:"L-0009",q:"Why should you NOT use the CAP grid alone to report a clue location?",c:["It's classified","It's not precise enough","It's only for aircraft","It's too precise"],a:1,e:"Use grid coordinates, polar plot, or lat/long."},
+ {t:"L-0009",q:"What is your first transmission when reporting a clue?",c:["“We found something big!”","“I have a clue report for the mission coordinator or ground operations officer. Advise when you are ready to copy, OVER.”","“Location follows.”","“Send help.”"],a:1,e:"Tell base you have a clue report and to prepare to copy."},
+ {t:"L-0009",q:"Resource number 4 means…",c:["Advanced Life Support","Law Enforcement","Medical Examiner or Coroner","Hazmat"],a:2,e:"1 none, 2 ALS, 3 fire, 4 ME/coroner, 5 law enforcement, 6 hazmat, 7 more ground teams."},
+ {t:"L-0009",q:"Resource number 2 means…",c:["Advanced Life Support required","Fire suppression","Additional ground teams","No resources needed"],a:0,e:"2 = Advanced Life Support."},
+ {t:"L-0009",q:"Resource number 7 means…",c:["Hazmat team","Additional Ground Teams required","Law enforcement","Coroner"],a:1,e:"7 = additional ground teams."},
+ {t:"L-0009",q:"Which description is correct for a clue report?",c:["“We found a pile of bloody clothing.”","“Found one pair of jeans, size 12, and one white T‑shirt. Both dirty with possible bloodstains.”","“Looks like the victim is dead.”","“Something terrible happened here.”"],a:1,e:"Avoid inflammatory descriptions and conjecture — eavesdroppers may be listening."},
+ {t:"L-0009",q:"How should you end the clue report?",c:["“Over and out.”","“Standing by for further instructions.”","“Goodbye.”","“Wilco.”"],a:1,e:"Performance measure #6."},
+ {t:"L-0009",q:"Time limit for the clue report evaluation?",c:["1 minute","2 minutes","5 minutes","15 minutes"],a:2,e:"Complete all steps within 5 minutes."},
+ {t:"L-0010",q:"If you can hear thunder…",c:["You are safe","You are close enough to be hit by lightning — seek safe shelter","Lightning is 50 miles away","Continue operating outside"],a:1,e:"Lightning rule #1."},
+ {t:"L-0010",q:"Which is a SAFE shelter from lightning?",c:["Small shed","Under an isolated tree","Sturdy building or (hard‑top) car","Convertible"],a:2,e:"Not small sheds, isolated trees, or convertibles."},
+ {t:"L-0010",q:"On foot with no shelter, you should find…",c:["The highest point","A low spot away from trees, fences and poles, not subject to flooding","An open field","A metal fence"],a:1,e:"In woods, shelter under shorter trees."},
+ {t:"L-0010",q:"Before leaving the air due to lightning, you should…",c:["Just turn the radio off","Report to mission base (or any unit) that you are leaving the air due to lightning","Transmit MAYDAY","Raise the antenna"],a:1,e:"Lightning rule #6."},
+ {t:"L-0010",q:"When lightning is observed in the area, what should you disconnect?",c:["Nothing","Antennas from radios and radios/power supplies from AC outlets","Only the microphone","Only the speaker"],a:1,e:"Lightning rules #3 and #4."},
+ {t:"P-0101",q:"Which ICS form is used to log the actions of your unit/team?",c:["ICS 213","ICS 214","ICS 215","ICS 209"],a:1,e:"ICS Form 214."},
+ {t:"P-0101",q:"Each log entry must include…",c:["Time, event, mileage/location as appropriate, and name of individual annotating","Only the time","Only the event","Weather and temperature"],a:0,e:"P‑0101 item 4."},
+ {t:"P-0101",q:"When does the mission log end?",c:["When the sortie ends","At midnight","When personnel are called in and home safely to the incident commander","When the IC signs"],a:2,e:"It starts when the unit/section opens and is maintained until everyone is home safe."},
+ {t:"P-0101",q:"The ground team ICS 214 may be kept as an attachment to which form?",c:["CAPF 104","CAPF 109","CAPF 5","CAPF 60"],a:1,e:"Ground: CAPF 109. Aircrew: CAPF 104."},
+ {t:"SQTR",q:"What are the MRO prerequisites?",c:["Mission Pilot and Observer","GES and ICUT (plus commander approval)","IS‑800 only","Ground Team Member 1"],a:1,e:"GES + Introductory Communications User Training, then commander approval."},
+ {t:"SQTR",q:"Which FEMA courses are required for MRO?",c:["IS‑100 and IS‑700","IS‑200 and IS‑800","ICS‑300","None"],a:0,e:"IS‑100 and IS‑700."},
+ {t:"SQTR",q:"How many exercise/mission participations as an MRO trainee are required?",c:["1","2","3","5"],a:1,e:"Two, signed by a qualified supervisor with mission numbers."},
+ {t:"SQTR",q:"What is the MRO's role when they know a lot of mission information?",c:["Make operational decisions","Pass the information to the people who need it to make decisions","Keep it secret","Post it on social media"],a:1,e:"Course notes: it's not the MRO's job to make the decision, just to pass the message."}
+];
+
+/* Scenario generators for instructor mode */
+const SCEN = {
+ grid(){const cs="CAP "+r(1,9)+r(0,9)+r(0,9)+r(0,9);const sec=pick(["Washington","New York","Detroit","Cincinnati"]);const g=r(80,180);const q=pick(["Alfa","Bravo","Charlie","Delta"]);
+  return `<b>Message to send:</b> Aircraft <b>${cs}</b> is reassigned from its current grid to <b>grid ${sec} ${g} ${q}</b>. Begin search on arrival, report entering grid.<br><b>Then transmit to candidate:</b> “PAN‑PAN, PAN‑PAN, PAN‑PAN, Mission Base, this is ${cs}, rough‑running engine, diverting to nearest airport, ${r(2,6)} souls on board, OVER.” Ask: what does it mean / what do you do?`;},
+ freq(){const f=loadSettings().freq||{};const row=(k,l)=>`<tr><td>${l}</td><td>${esc(f[k]||"— set in Settings —")}</td></tr>`;
+  return `<table class="tbl"><tr><th>Item</th><th>Your local assignment</th></tr>${row("s1","Primary simplex")}${row("s2","Alternate simplex")}${row("d1","Primary duplex pair")}${row("d2","Alternate duplex pair")}${row("h1","Primary HF‑SSB (region)")}${row("h2","Alternate HF‑SSB (region)")}${row("am","VHF‑AM SAR")}${row("oth","Other agencies")}</table>`;},
+ msg(){const m="26‑M‑"+r(1000,9999);const t=pad(r(15,21))+"00";
+  return `<b>Formal message (candidate sends):</b> FROM Incident Commander TO Wing Director of Operations — SUBJECT Mission Continuation — “Mission ${m} continues through ${t} local. Two aircraft and three ground teams remain committed. Next update at ${pad((+t.slice(0,2)+2)%24)}00 local.”<br><b>Ask for a fill:</b> “SAY AGAIN ALL AFTER continues.”<br><b>Informal message (candidate sends):</b> “Ground Team ${r(1,4)}, contact the Ground Branch Director by telephone at your earliest opportunity.”<br><b>You send to candidate (formal):</b> FROM Planning Section Chief TO Communications Unit Leader — “Change shift at ${pad(r(6,9))}00 local tomorrow. Two radio operators required at mission base.”<br><b>You send (informal):</b> “Mission Base, please advise Flight Line that CAP ${r(1000,9999)} is ten minutes out.”`;},
+ check(){const now=new Date(Date.now()+5*60000);const due=pad(now.getHours())+pad(now.getMinutes());
+  return `<b>Check due at:</b> ${due} (5 min from now)<br><b>Hidden info (read only if asked):</b> Location: ${pick(["grid right one point three, up two point two","N40° 25.3′ W075° 47.8′","the north end of the fire road at the power line crossing"])}. Since last check: ${pick(["searched line abreast along the creek, no clues","completed hasty search of the trail system, no clues","interviewed two hikers, no sightings"])}. Now: ${pick(["continuing search pattern","moving to the next segment","taking a 20‑minute meal break"])}.`;},
+ pos(){const la=r(39,41),lo=r(74,77);return `<b>Marked position:</b> N${la}° ${r(10,59)}.${r(0,9)}′, W0${lo}° ${r(10,59)}.${r(0,9)}′<br>Candidate call sign: <b>Ground Team ${r(1,5)}</b> — Remote station: <b>Mission Base</b>.`;},
+ clue(){const c=pick([
+  ["One red backpack, zipper closed, with name tag reading “J. Smith”","Left in place, marked with flagging tape","1"],
+  ["One adult hiking boot, left foot, size 10, brown leather, wet","Bagged, location marked with GPS waypoint and flagging","5, 7"],
+  ["Fresh footprints, two sets, one adult and one child, heading north on the trail","Marked and photographed, not disturbed","7"],
+  ["One female adult located, conscious, alert, complaining of ankle pain, unable to walk","Team providing first aid on scene","2"],
+  ["Aircraft wreckage, single‑engine, white with blue stripe, no movement observed","Area secured, nothing touched","2, 3, 5"]]);
+  return `<b>Clue:</b> ${c[0]}<br><b>Location:</b> N${r(39,41)}° ${r(10,59)}.${r(0,9)}′ W0${r(74,77)}° ${r(10,59)}.${r(0,9)}′<br><b>Status:</b> ${c[1]}<br><b>Resources needed:</b> ${c[2]}`;},
+ log(){let t=r(7,9)*60+r(0,59);const ev=["Team departs mission base, odometer "+r(12000,90000),"Arrive at search area; begin hasty search of segment "+pick(["A","B","C"]),"Scheduled radio check with mission base, all OK","Search line changes direction to north along creek","Interviewed landowner; reports hearing a whistle last night","Clue found: blue glove at trail junction; reported to base","Team member twisted ankle; first aid given, continuing","Local police officer arrives, asks team to avoid private property to the east","Reporter approaches team; referred to Public Information Officer","Leave search area; return route via Route "+r(10,422),"Arrive mission base, odometer +"+r(20,60)+" miles; team debrief"];
+  return "<ol class='tight'>"+ev.slice(0,10).map(e=>{t+=r(8,35);return `<li><b>${pad(Math.floor(t/60)%24)}${pad(t%60)}</b> – ${e}</li>`}).join("")+"</ol>";}
+};
+function r(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function pad(n){return String(n).padStart(2,"0")}
+
+</script>
+<script>
+const $=s=>document.querySelector(s);
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function LS(k,v){try{if(v===undefined){const x=localStorage.getItem(k);return x?JSON.parse(x):null}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+function loadSettings(){return LS("mro_settings")||{}}
+function saveSettings(s){LS("mro_settings",s)}
+
+/* --- compact SHA-256 (no WebCrypto needed for offline/file contexts) --- */
+function sha256(ascii){function rr(v,a){return(v>>>a)|(v<<(32-a))}const mp=Math.pow,mw=mp(2,32);let res="",words=[],bl=ascii.length*8,hash=[],k=[],pc=0,isC={};
+ ascii=unescape(encodeURIComponent(ascii));bl=ascii.length*8;
+ for(let c=2;pc<64;c++){if(!isC[c]){for(let i=0;i<313;i+=c)isC[i]=c;hash[pc]=(mp(c,.5)*mw)|0;k[pc++]=(mp(c,1/3)*mw)|0}}
+ hash=hash.slice(0,8);ascii+="\x80";while(ascii.length%64-56)ascii+="\x00";
+ for(let i=0;i<ascii.length;i++){const j=ascii.charCodeAt(i);words[i>>2]|=j<<((3-i)%4)*8}
+ words[words.length]=((bl/mw)|0);words[words.length]=bl;
+ for(let j=0;j<words.length;){const w=words.slice(j,j+=16),oh=hash;hash=hash.slice(0,8);
+  for(let i=0;i<64;i++){const w15=w[i-15],w2=w[i-2],a=hash[0],e=hash[4];
+   const t1=hash[7]+(rr(e,6)^rr(e,11)^rr(e,25))+((e&hash[5])^((~e)&hash[6]))+k[i]+(w[i]=(i<16)?w[i]:(w[i-16]+(rr(w15,7)^rr(w15,18)^(w15>>>3))+w[i-7]+(rr(w2,17)^rr(w2,19)^(w2>>>10)))|0);
+   const t2=(rr(a,2)^rr(a,13)^rr(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));
+   hash=[(t1+t2)|0].concat(hash);hash[4]=(hash[4]+t1)|0}
+  for(let i=0;i<8;i++)hash[i]=(hash[i]+oh[i])|0}
+ for(let i=0;i<8;i++)for(let j=3;j+1;j--){const b=(hash[i]>>(j*8))&255;res+=((b<16)?0:"")+b.toString(16)}return res}
+const DEFAULT_PW="MRO-EVAL";
+function pwHash(){return loadSettings().pw||sha256("mro:"+DEFAULT_PW)}
+
+/* ---------- state ---------- */
+let VIEW="home",unlocked=false,studyTask=null,quiz=null,fc=null,evalTask=null,timers={};
+const TABS=[["home","Overview"],["study","Study Tasks"],["ref","Reference"],["quiz","Practice Quiz"],["cards","Flashcards"],["inst","🔒 Instructor"]];
+function nav(){ $("#nav").innerHTML=TABS.map(([k,l])=>`<button class="${VIEW===k?'on':''}" onclick="go('${k}')">${k==="inst"&&unlocked?"🔓 Instructor":l}</button>`).join("") }
+function go(v){VIEW=v;if(v!=="study")studyTask=null;if(v!=="inst")evalTask=null;render();window.scrollTo(0,0)}
+function render(){nav();const m=$("#main");({home:vHome,study:vStudy,ref:vRef,quiz:vQuiz,cards:vCards,inst:vInst})[VIEW](m)}
+
+/* ---------- OVERVIEW ---------- */
+function vHome(m){
+ m.innerHTML=`<div class="card"><h2>Getting ready for your MRO sign‑off</h2>
+ <p>The Mission Radio Operator SQTR has <b>11 hands‑on tasks</b> (L‑0001 to L‑0010 and P‑0101). For each one an evaluator sets up a situation, briefs you, and scores you <b>Pass/Fail</b> on every performance measure. <b>You must pass every measure</b>; if you miss one, the evaluator shows you what was wrong and how to do it correctly.</p>
+ <div class="row"><button class="btn" onclick="go('study')">Study the tasks</button><button class="btn sec" onclick="go('quiz')">Take a practice quiz</button><button class="btn sec" onclick="go('ref')">Quick reference</button></div></div>
+ <div class="card"><h2>SQTR checklist</h2>${SQTR.map(g=>`<h3>${g.grp}</h3><ul class="tight">${g.items.map(i=>`<li><b>${esc(i.t)}</b>${i.n?` <span class="mute small">— ${esc(i.n)}</span>`:""}</li>`).join("")}</ul>`).join("")}</div>
+ <div class="card"><h2>Five habits evaluators look for</h2><ol class="tight">
+ <li><b>Listen before you transmit</b> — every time.</li><li><b>“[Them], THIS IS [you], OVER.”</b> — call signs in the right order.</li>
+ <li><b>Phonetics &amp; numbers</b> — letters as Alfa/Bravo, numbers digit by digit (NINER, FIFE, TREE).</li>
+ <li><b>Ask for a read‑back</b> on anything important (grids, positions, clue reports, check‑ins).</li>
+ <li><b>Stick to facts</b> — no chit‑chat, no guessing, no graphic descriptions.</li></ol></div>
+ <p class="mute small">Content is drawn from the CAP Mission Radio Operator Task Book (Mission Base Staff Tasks), the MRO SQTR worksheet and the “Mission Radio Operator Skills and Requirements” course. Items marked “GP” are general good practice added for clarity. Always defer to current CAP regulations/instructions and your wing communications plan.</p>`;
+}
+
+/* ---------- STUDY ---------- */
+function vStudy(m){
+ if(studyTask===null){m.innerHTML=`<div class="card"><h2>Study the tasks</h2><p class="mute">Each task shows what you'll be asked, what to say, and exactly how you'll be scored.</p><div class="tasklist">${TASKS.map((t,i)=>`<button onclick="studyTask=${i};render();scrollTo(0,0)"><span class="tag">${t.id}</span>${esc(t.title)}</button>`).join("")}</div></div>`;return}
+ const t=TASKS[studyTask];
+ m.innerHTML=`<div class="row noprint" style="margin-bottom:10px"><button class="btn sec sm" onclick="studyTask=null;render()">← All tasks</button>
+  ${studyTask>0?`<button class="btn sec sm" onclick="studyTask--;render();scrollTo(0,0)">‹ Prev</button>`:""}${studyTask<TASKS.length-1?`<button class="btn sec sm" onclick="studyTask++;render();scrollTo(0,0)">Next ›</button>`:""}</div>
+ <div class="card"><h2><span class="tag">${t.id}</span>${esc(t.title)}</h2>
+  <p><b>Situation:</b> ${esc(t.cond)}<br><b>Objective:</b> ${esc(t.obj)}${t.timer?` <span class="badge fail">Time limit ${t.timer/60} min</span>`:""}</p>
+  <h3>What you need to know</h3><ul class="tight">${t.know.map(k=>`<li>${esc(k)}</li>`).join("")}</ul></div>
+ <div class="card study"><h3 style="margin-top:0">How to answer</h3><dl>${t.study.map(([h,b])=>`<dt>${h}</dt><dd>${b}</dd>`).join("")}</dl></div>
+ <div class="card"><h3 style="margin-top:0">What the evaluator will do</h3><p><b>Setup:</b> ${esc(t.setup)}</p><div class="brief"><b>You'll be told:</b> ${esc(t.brief.replace(/\(Evaluator:.*?\)/,""))}</div>
+ <h3>You're scored Pass/Fail on</h3><ol class="tight">${t.measures.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>
+ <div class="row" style="margin-top:12px"><button class="btn sm" onclick="startQuiz('${t.id}')">Quiz me on ${t.id}</button></div></div>`;
+}
+
+/* ---------- REFERENCE ---------- */
+function vRef(m){
+ const s=(""+(LS("mro_spell")||"")).slice(0,60);
+ m.innerHTML=`<div class="card"><h2>Phonetic speller</h2><p class="mute small">Type a call sign, grid or word to hear how it's spoken.</p><input id="sp" value="${esc(s)}" placeholder="e.g. CAP 2817 or GRID 102C" oninput="spell()"><p id="spo" class="say" style="display:block;margin-top:8px;min-height:1.6em"></p></div>
+ <div class="grid2"><div class="card"><h2>Phonetic alphabet</h2><table class="tbl">${PHONETIC.map(([a,b])=>`<tr><td><b>${a}</b></td><td>${b}</td></tr>`).join("")}</table></div>
+ <div class="card"><h2>Numbers</h2><table class="tbl">${NUMBERS.map(([a,b])=>`<tr><td><b>${a}</b></td><td>${b}</td></tr>`).join("")}</table><p class="small mute">Say numbers digit by digit: 2817 = “TOO AIT WUN SEV‑EN”. Times: 1400 = “fourteen hundred” or “WUN FOW‑ER ZE‑RO ZE‑RO”.</p>
+ <h2 style="margin-top:14px">Urgency signals</h2><table class="tbl">${URGENCY.map(([a,b])=>`<tr><td><b>${a}</b></td><td>${b}</td></tr>`).join("")}</table></div></div>
+ <div class="card"><h2>Prowords</h2><table class="tbl">${PROWORDS.map(([a,b])=>`<tr><td style="white-space:nowrap"><b>${a}</b></td><td>${b}</td></tr>`).join("")}</table><p class="small mute">Verify against your ICUT materials and current CAP communications guidance.</p></div>
+ <div class="grid2"><div class="card"><h2>Clue‑report resource numbers</h2><table class="tbl">${RESOURCES.map(([a,b])=>`<tr><td><b>${a}</b></td><td>${b}</td></tr>`).join("")}</table></div>
+ <div class="card"><h2>Memory aids</h2><ul class="tight"><li><b>Comms site — H‑L‑A‑I:</b> High ground, Line of sight, Accessibility, Interference (power lines, transformers, underground cables)</li>
+ <li><b>Regain comms:</b> Check radio → Climb → Repeater → Relay → Relocate vehicle → Phone</li>
+ <li><b>Radio check content:</b> Time, Location, Status, Read‑back</li><li><b>Log entry:</b> Time, Event, Mileage/Location, Name</li>
+ <li><b>Forms:</b> ICS 213 = General Message, ICS 214 = Activity/Unit Log</li></ul></div></div>`;
+ spell();
+}
+function spell(){const el=$("#sp");if(!el)return;LS("mro_spell",el.value);const P=Object.fromEntries(PHONETIC),N=Object.fromEntries(NUMBERS);
+ $("#spo").textContent=el.value.toUpperCase().split("").map(c=>c===" "?"/":(P[c]||N[c]||"")).filter(Boolean).join(" ").replace(/ \/ /g," — ")}
+
+/* ---------- QUIZ ---------- */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function startQuiz(task){const pool=QUIZ.filter(q=>!task||task==="all"||q.t===task);const n=task&&task!=="all"?pool.length:Math.min(20,pool.length);
+ quiz={task:task||"all",qs:shuffle(pool).slice(0,n).map(q=>{const o=shuffle(q.c.map((c,i)=>({c,ok:i===q.a})));return{...q,o}}),i:0,score:0,ans:null};VIEW="quiz";render();scrollTo(0,0)}
+function vQuiz(m){
+ if(!quiz){const ids=["all",...new Set(QUIZ.map(q=>q.t))];
+  m.innerHTML=`<div class="card"><h2>Practice quiz</h2><p class="mute">${QUIZ.length} questions built from the task guide. Pick a topic or take a mixed 20‑question quiz.</p><div class="row">${ids.map(i=>`<button class="btn ${i==="all"?"":"sec"} sm" onclick="startQuiz('${i}')">${i==="all"?"Mixed 20":i}</button>`).join("")}</div></div>`;return}
+ if(quiz.i>=quiz.qs.length){const pct=Math.round(quiz.score/quiz.qs.length*100);
+  m.innerHTML=`<div class="card"><h2>Score: ${quiz.score} / ${quiz.qs.length} (${pct}%)</h2><div class="prog"><i style="width:${pct}%"></i></div><p>${pct===100?"Perfect — you're ready for this topic.":pct>=80?"Good. Review the ones you missed.":"Keep studying — revisit the task pages and try again."}</p><div class="row"><button class="btn" onclick="startQuiz(quiz.task)">Retake</button><button class="btn sec" onclick="quiz=null;render()">Choose another quiz</button></div></div>`;return}
+ const q=quiz.qs[quiz.i];
+ m.innerHTML=`<div class="card"><div class="row" style="justify-content:space-between"><span class="tag">${q.t}</span><span class="mute small">Question ${quiz.i+1} of ${quiz.qs.length} · Score ${quiz.score}</span></div>
+ <div class="prog" style="margin:8px 0 12px"><i style="width:${quiz.i/quiz.qs.length*100}%"></i></div>
+ <h2>${esc(q.q)}</h2>${q.o.map((o,i)=>`<button class="opt ${quiz.ans!==null?(o.ok?"ok":(quiz.ans===i?"bad":"")):""}" onclick="answer(${i})" ${quiz.ans!==null?"disabled":""}>${esc(o.c)}</button>`).join("")}
+ ${quiz.ans!==null?`<p class="note" style="margin-top:10px"><b>${q.o[quiz.ans].ok?"Correct.":"Not quite."}</b> ${esc(q.e)}</p><button class="btn" onclick="quiz.i++;quiz.ans=null;render()">${quiz.i+1<quiz.qs.length?"Next question":"See score"}</button>`:""}
+ <div style="margin-top:10px"><button class="btn sec sm" onclick="quiz=null;render()">Quit quiz</button></div></div>`;
+}
+function answer(i){if(quiz.ans!==null)return;quiz.ans=i;if(quiz.qs[quiz.i].o[i].ok)quiz.score++;render()}
+
+/* ---------- FLASHCARDS ---------- */
+const DECKS={"Phonetic alphabet":PHONETIC.map(([a,b])=>[a,b]),"Numbers":NUMBERS.map(([a,b])=>[a,b]),"Prowords":PROWORDS.map(([a,b])=>[a,b]),"Urgency signals":URGENCY,"Resource numbers":RESOURCES.map(([a,b])=>["Resource #"+a,b]),"Task numbers":TASKS.map(t=>[t.id,t.title])};
+function vCards(m){
+ if(!fc){m.innerHTML=`<div class="card"><h2>Flashcards</h2><p class="mute">Tap a card to flip it.</p><div class="row">${Object.keys(DECKS).map(d=>`<button class="btn sec sm" onclick="fc={d:'${d}',c:shuffle(DECKS['${d}']),i:0,f:false};render()">${d}</button>`).join("")}</div></div>`;return}
+ const [a,b]=fc.c[fc.i];
+ m.innerHTML=`<div class="card"><div class="row" style="justify-content:space-between"><b>${fc.d}</b><span class="mute small">${fc.i+1} / ${fc.c.length}</span></div>
+ <div class="card flash" onclick="fc.f=!fc.f;render()" style="margin-top:10px">${fc.f?`<div class="back">${esc(b)}</div>`:esc(a)}</div>
+ <div class="row"><button class="btn sec" onclick="fc.i=(fc.i-1+fc.c.length)%fc.c.length;fc.f=false;render()">‹ Prev</button><button class="btn" onclick="fc.f=!fc.f;render()">Flip</button><button class="btn sec" onclick="fc.i=(fc.i+1)%fc.c.length;fc.f=false;render()">Next ›</button><button class="btn sec sm" onclick="fc=null;render()">Decks</button></div></div>`;
+}
+
+/* ---------- INSTRUCTOR ---------- */
+function blankEval(){return{cand:{name:"",capid:"",unit:"",date:new Date().toISOString().slice(0,10)},evaluator:{name:"",capid:""},mission:"",prereq:{},res:{},notes:{},scen:{},started:Date.now()}}
+function EV(){let e=LS("mro_eval");if(!e){e=blankEval();LS("mro_eval",e)}return e}
+function saveEV(e){LS("mro_eval",e)}
+function tryUnlock(){const v=$("#pw").value;if(sha256("mro:"+v)===pwHash()){unlocked=true;render()}else{$("#pwmsg").textContent="Incorrect password.";$("#pw").value=""}}
+function taskStatus(e,t){const r=e.res[t.id]||{};const vals=t.measures.map((_,i)=>r[i]);if(vals.some(v=>v==="F"))return"fail";if(vals.every(v=>v==="P"))return"pass";return"pend"}
+function vInst(m){
+ if(!unlocked){m.innerHTML=`<div class="card lock"><h2>🔒 Instructor mode</h2><p class="mute">Enter the instructor password to open the evaluation guide.</p><input id="pw" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')tryUnlock()"><div style="margin-top:10px"><button class="btn" onclick="tryUnlock()">Unlock</button></div><p id="pwmsg" style="color:var(--fail)"></p></div>`;setTimeout(()=>$("#pw")&&$("#pw").focus(),50);return}
+ if(evalTask!==null)return vEvalTask(m);
+ if(evalTask===null&&window._instSub==="settings")return vSettings(m);
+ if(window._instSub==="history")return vHistory(m);
+ const e=EV();const done=TASKS.filter(t=>taskStatus(e,t)==="pass").length;
+ m.innerHTML=`<div class="row noprint" style="justify-content:space-between;margin-bottom:10px"><b>Evaluation in progress</b><div class="row"><button class="btn sec sm" onclick="_instSub='history';render()">Saved evals</button><button class="btn sec sm" onclick="_instSub='settings';render()">Settings</button><button class="btn sec sm" onclick="unlocked=false;_instSub=null;render()">Lock</button></div></div>
+ <div class="card"><h2>Candidate</h2><div class="grid2">
+  ${fld("cand.name","Candidate name (Last, First MI)")}${fld("cand.capid","Candidate CAPID")}${fld("cand.unit","Unit")}${fld("cand.date","Date","date")}
+  ${fld("evaluator.name","Evaluator name")}${fld("evaluator.capid","Evaluator CAPID")}${fld("mission","Mission / exercise number")}</div></div>
+ <div class="card"><h2>Prerequisites &amp; records check</h2><p class="mute small">Confirm in eServices before evaluating tasks.</p>${SQTR.map(g=>g.items.filter(i=>!/^[LP]-0/.test(i.id))).flat().map(i=>`<label style="display:flex;gap:8px;align-items:center;color:var(--ink)"><input type="checkbox" style="width:auto" ${e.prereq[i.id]?"checked":""} onchange="setPre('${i.id}',this.checked)"> ${esc(i.t)}</label>`).join("")}</div>
+ <div class="card"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Tasks</h2><span class="mute small">${done} of ${TASKS.length} passed</span></div><div class="prog" style="margin:8px 0 12px"><i style="width:${done/TASKS.length*100}%"></i></div>
+ <div class="tasklist">${TASKS.map((t,i)=>{const s=taskStatus(e,t);return `<button onclick="evalTask=${i};render();scrollTo(0,0)"><span class="tag">${t.id}</span>${esc(t.title)} <span class="badge ${s}" style="float:right">${s==="pass"?"PASS":s==="fail"?"RETRAIN":"Not done"}</span></button>`}).join("")}</div></div>
+ <div class="card noprint"><div class="row"><button class="btn" onclick="printEval()">Print / save record</button><button class="btn sec" onclick="copySummary()">Copy summary</button><button class="btn sec" onclick="archiveEval()">Save &amp; start new</button><button class="btn sec" onclick="if(confirmReset())newEval()">Clear without saving</button></div><p id="cpmsg" class="small mute"></p>
+ <p class="small mute">Record pass dates in eServices (task, evaluator CAPID). This app is a guide and does not replace the official SQTR.</p></div>`;
+}
+function confirmReset(){return window._rc?(window._rc=false,true):(window._rc=true,$("#cpmsg").textContent="Tap “Clear without saving” again to confirm.",false)}
+function fld(path,label,type){const e=EV();const v=path.split(".").reduce((o,k)=>o&&o[k],e)||"";return `<div><label>${label}</label><input type="${type||"text"}" value="${esc(v)}" oninput="setF('${path}',this.value)"></div>`}
+function setF(path,v){const e=EV();const ks=path.split(".");let o=e;for(let i=0;i<ks.length-1;i++)o=o[ks[i]];o[ks.at(-1)]=v;saveEV(e)}
+function setPre(id,v){const e=EV();e.prereq[id]=v;saveEV(e)}
+function newEval(){saveEV(blankEval());render()}
+function archiveEval(){const e=EV();const h=LS("mro_hist")||[];h.unshift({...e,saved:Date.now()});LS("mro_hist",h.slice(0,50));newEval();$("#cpmsg").textContent="Saved to history. New evaluation started."}
+function vHistory(m){const h=LS("mro_hist")||[];
+ m.innerHTML=`<div class="row" style="margin-bottom:10px"><button class="btn sec sm" onclick="_instSub=null;render()">← Back</button></div><div class="card"><h2>Saved evaluations</h2>${h.length?`<table class="tbl"><tr><th>Candidate</th><th>Date</th><th>Passed</th><th></th></tr>${h.map((e,i)=>`<tr><td>${esc(e.cand.name||"(no name)")}<br><span class="small mute">${esc(e.cand.capid)}</span></td><td>${esc(e.cand.date)}</td><td>${TASKS.filter(t=>taskStatus(e,t)==="pass").length}/${TASKS.length}</td><td><button class="btn sm" onclick="loadHist(${i})">Open</button> <button class="btn sec sm" onclick="delHist(${i})">Delete</button></td></tr>`).join("")}</table>`:`<p class="mute">No saved evaluations yet.</p>`}<p class="small mute">Opening a saved evaluation replaces the one in progress (save it first if needed).</p></div>`}
+function loadHist(i){const h=LS("mro_hist")||[];const e=h.splice(i,1)[0];delete e.saved;LS("mro_hist",h);saveEV(e);_instSub=null;render()}
+function delHist(i){const h=LS("mro_hist")||[];h.splice(i,1);LS("mro_hist",h);render()}
+
+function vSettings(m){const s=loadSettings();const f=s.freq||{};
+ const F=(k,l)=>`<div><label>${l}</label><input value="${esc(f[k]||"")}" oninput="setFreq('${k}',this.value)" placeholder="channel / frequency – use"></div>`;
+ m.innerHTML=`<div class="row" style="margin-bottom:10px"><button class="btn sec sm" onclick="_instSub=null;render()">← Back</button></div>
+ <div class="card"><h2>Change instructor password</h2><div class="grid2"><div><label>Current password</label><input id="p0" type="password"></div><div><label>New password (min 4)</label><input id="p1" type="password"></div><div><label>Repeat new password</label><input id="p2" type="password"></div></div><div style="margin-top:10px"><button class="btn" onclick="chgPw()">Change password</button> <span id="pmsg" class="small"></span></div>
+ <p class="small mute">The password is stored as a hash on this device only. It keeps casual users out of instructor mode; it is not strong encryption.</p></div>
+ <div class="card"><h2>Local frequency list (L‑0003 answer key)</h2><p class="mute small">Stored only on this device and shown only in instructor mode. Use channel names if you prefer not to store frequencies.</p><div class="grid2">
+ ${F("s1","Primary simplex")}${F("s2","Alternate simplex")}${F("d1","Primary duplex pair")}${F("d2","Alternate duplex pair")}${F("h1","Primary HF‑SSB (region)")}${F("h2","Alternate HF‑SSB (region)")}${F("am","VHF‑AM SAR")}${F("oth","Other agencies")}</div></div>`}
+function setFreq(k,v){const s=loadSettings();s.freq=s.freq||{};s.freq[k]=v;saveSettings(s)}
+function chgPw(){const a=$("#p0").value,b=$("#p1").value,c=$("#p2").value,o=$("#pmsg");
+ if(sha256("mro:"+a)!==pwHash()){o.textContent="Current password is wrong.";o.style.color="var(--fail)";return}
+ if(b.length<4||b!==c){o.textContent="New passwords must match and be 4+ characters.";o.style.color="var(--fail)";return}
+ const s=loadSettings();s.pw=sha256("mro:"+b);saveSettings(s);o.textContent="Password changed.";o.style.color="var(--pass)";["p0","p1","p2"].forEach(i=>$("#"+i).value="")}
+
+function vEvalTask(m){const t=TASKS[evalTask];const e=EV();const r=e.res[t.id]||{};const st=taskStatus(e,t);
+ if(t.scenario&&!e.scen[t.id]){e.scen[t.id]=SCEN[t.scenario]();saveEV(e)}
+ m.innerHTML=`<div class="row" style="margin-bottom:10px"><button class="btn sec sm" onclick="evalTask=null;render()">← Task list</button>
+ ${evalTask>0?`<button class="btn sec sm" onclick="evalTask--;render();scrollTo(0,0)">‹ Prev</button>`:""}${evalTask<TASKS.length-1?`<button class="btn sec sm" onclick="evalTask++;render();scrollTo(0,0)">Next ›</button>`:""}</div>
+ <div class="card"><div class="row" style="justify-content:space-between"><h2 style="margin:0"><span class="tag">${t.id}</span>${esc(t.title)}</h2><span class="badge ${st}">${st==="pass"?"PASS":st==="fail"?"RETRAIN":"In progress"}</span></div>
+ <p class="small"><b>Conditions:</b> ${esc(t.cond)}<br><b>Objective:</b> ${esc(t.obj)}</p>
+ <h3>① Set up</h3><p>${esc(t.setup)}</p>
+ ${t.scenario?`<div class="card" style="background:var(--bg)"><div class="row" style="justify-content:space-between"><b>Scenario${t.scenario==="freq"?" / answer key":""}</b>${t.scenario!=="freq"?`<button class="btn sec sm" onclick="regen()">New scenario</button>`:`<button class="btn sec sm" onclick="_instSub='settings';evalTask=null;render()">Edit list</button>`}</div><div style="margin-top:6px">${t.scenario==="freq"?SCEN.freq():e.scen[t.id]}</div></div>`:""}
+ <h3>② Read to the candidate</h3><div class="brief">${esc(t.brief)}</div>
+ ${t.timer?`<h3>③ Timer (${t.timer/60} min)</h3><div class="row"><span id="tm" class="timer">${fmt(t.timer)}</span><button class="btn sm" onclick="tStart('${t.id}',${t.timer})">Start</button><button class="btn sec sm" onclick="tStop('${t.id}')">Stop</button><button class="btn sec sm" onclick="tReset('${t.id}',${t.timer})">Reset</button></div>`:""}
+ <h3>${t.timer?"④":"③"} Score each performance measure</h3>
+ ${t.measures.map((x,i)=>`<div class="meas"><div class="txt">${i+1}. ${esc(x)}</div><div class="pf"><button class="P ${r[i]==="P"?"on":""}" onclick="mark('${t.id}',${i},'P')">P</button><button class="F ${r[i]==="F"?"on":""}" onclick="mark('${t.id}',${i},'F')">F</button></div></div>`).join("")}
+ <div class="row" style="margin-top:8px"><button class="btn sec sm" onclick="allPass('${t.id}')">Mark all Pass</button><button class="btn sec sm" onclick="clearT('${t.id}')">Clear</button></div>
+ ${st==="fail"?`<p class="note" style="margin-top:10px"><b>Failed measure:</b> show the candidate what was done wrong and how to do it correctly, then re‑evaluate.</p>`:""}
+ <details open><summary>What a correct answer looks like</summary><ul class="tight">${t.key.map(k=>`<li>${esc(k)}</li>`).join("")}</ul></details>
+ <details><summary>Training points (what the candidate should know)</summary><ul class="tight">${t.know.map(k=>`<li>${esc(k)}</li>`).join("")}</ul><dl class="study">${t.study.map(([h,b])=>`<dt>${h}</dt><dd>${b}</dd>`).join("")}</dl></details>
+ <label>Evaluator notes</label><textarea oninput="setNote('${t.id}',this.value)">${esc(e.notes[t.id]||"")}</textarea></div>`;
+ if(timers[t.id])tShow(t.id);
+}
+function regen(){const t=TASKS[evalTask];const e=EV();e.scen[t.id]=SCEN[t.scenario]();saveEV(e);render()}
+function mark(id,i,v){const e=EV();e.res[id]=e.res[id]||{};e.res[id][i]=e.res[id][i]===v?undefined:v;e.res[id]["d"]=new Date().toISOString().slice(0,10);saveEV(e);render()}
+function allPass(id){const e=EV();const t=TASKS.find(x=>x.id===id);e.res[id]={d:new Date().toISOString().slice(0,10)};t.measures.forEach((_,i)=>e.res[id][i]="P");saveEV(e);render()}
+function clearT(id){const e=EV();delete e.res[id];saveEV(e);render()}
+function setNote(id,v){const e=EV();e.notes[id]=v;saveEV(e)}
+function fmt(s){const n=Math.abs(s);return (s<0?"-":"")+Math.floor(n/60)+":"+pad(n%60)}
+function tShow(id){const el=$("#tm");if(!el)return;const T=timers[id];const left=T.run?Math.round(T.left-(Date.now()-T.t0)/1000):T.left;el.textContent=fmt(left);el.classList.toggle("out",left<=0)}
+function tStart(id,sec){const T=timers[id]||{left:sec};if(T.run)return;T.run=true;T.t0=Date.now();clearInterval(T.iv);T.iv=setInterval(()=>tShow(id),250);timers[id]=T;tShow(id)}
+function tStop(id){const T=timers[id];if(!T||!T.run)return;T.left=Math.round(T.left-(Date.now()-T.t0)/1000);T.run=false;clearInterval(T.iv);tShow(id)}
+function tReset(id,sec){const T=timers[id];if(T)clearInterval(T.iv);timers[id]={left:sec};tShow(id)}
+
+function summaryText(){const e=EV();let s=`MRO SQTR EVALUATION\nCandidate: ${e.cand.name} (CAPID ${e.cand.capid})  Unit: ${e.cand.unit}\nDate: ${e.cand.date}  Evaluator: ${e.evaluator.name} (CAPID ${e.evaluator.capid})  Mission: ${e.mission}\n\n`;
+ TASKS.forEach(t=>{const st=taskStatus(e,t);s+=`${t.id} ${t.title}: ${st==="pass"?"PASS":st==="fail"?"FAIL – retrain":"not evaluated"}${e.res[t.id]&&e.res[t.id].d?" ("+e.res[t.id].d+")":""}\n`;if(e.notes[t.id])s+=`   Notes: ${e.notes[t.id]}\n`});return s}
+function copySummary(){const s=summaryText();const ok=()=>{$("#cpmsg").textContent="Summary copied to clipboard."};
+ if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(s).then(ok,fallback);else fallback();
+ function fallback(){const ta=document.createElement("textarea");ta.value=s;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok()}catch(x){}ta.remove()}}
+function printEval(){const e=EV();
+ $("#printArea").innerHTML=`<h2 style="margin:0">Mission Radio Operator — Task Evaluation Record</h2><p>Candidate: <b>${esc(e.cand.name)}</b> &nbsp; CAPID: ${esc(e.cand.capid)} &nbsp; Unit: ${esc(e.cand.unit)} &nbsp; Date: ${esc(e.cand.date)}<br>Evaluator: ${esc(e.evaluator.name)} &nbsp; CAPID: ${esc(e.evaluator.capid)} &nbsp; Mission/Exercise #: ${esc(e.mission)}</p>
+ <p>Prerequisites/records verified: ${SQTR.map(g=>g.items.filter(i=>!/^[LP]-0/.test(i.id))).flat().map(i=>(e.prereq[i.id]?"☑ ":"☐ ")+i.id).join(" &nbsp; ")}</p>
+ <table><tr><th>Task</th><th>Performance measures (P/F)</th><th>Result</th><th>Notes</th></tr>${TASKS.map(t=>{const r=e.res[t.id]||{};const st=taskStatus(e,t);return `<tr><td><b>${t.id}</b><br>${esc(t.title)}</td><td>${t.measures.map((x,i)=>`${i+1}. ${esc(x)} — <b>${r[i]||"–"}</b>`).join("<br>")}</td><td><b>${st==="pass"?"PASS":st==="fail"?"FAIL":"—"}</b><br>${r.d||""}</td><td>${esc(e.notes[t.id]||"")}</td></tr>`}).join("")}</table>
+ <p style="margin-top:20px">Evaluator signature: ______________________________ &nbsp; Date: ____________</p><p style="font-size:10px">Guide only — enter results in eServices / official SQTR.</p>`;
+ if(window.AndroidBridge&&AndroidBridge.print)AndroidBridge.print();else window.print()}
+
+render();
+</script>
+</body>
+</html>
